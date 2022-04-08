@@ -1,0 +1,20 @@
+package com.nguyenhung.ems.service.impl;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+
+import com.nguyenhung.ems.entity.Employee;
+import com.nguyenhung.ems.repository.EmployeeRepository;
+import com.nguyenhung.ems.service.EmployeeService;
+
+public class EmployeeServiceImpl implements EmployeeService {
+
+	@Autowired
+	private EmployeeRepository employeeRepo;
+	@Override
+	public List<Employee> getAllEmployees() {
+		return this.employeeRepo.findAll();
+	}
+	
+}

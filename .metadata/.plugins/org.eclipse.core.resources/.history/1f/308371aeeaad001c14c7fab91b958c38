@@ -1,0 +1,7 @@
+package com.nguyenhung.sms.service.impl;
+
+import com.nguyenhung.sms.service.StudentService;
+
+public class StudentServiceImpl implements StudentService {
+	
+}

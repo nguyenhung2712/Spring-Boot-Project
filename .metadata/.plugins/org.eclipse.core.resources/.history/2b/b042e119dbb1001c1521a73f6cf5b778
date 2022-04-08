@@ -1,0 +1,5 @@
+package com.nguyenhung.ems.service;
+
+public interface EmployeeService {
+
+}

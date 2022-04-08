@@ -1,0 +1,5 @@
+package com.nguyenhung.sms.repository;
+
+public interface StudentReposity {
+
+}

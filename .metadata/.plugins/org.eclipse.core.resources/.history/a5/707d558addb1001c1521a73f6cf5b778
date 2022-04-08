@@ -1,0 +1,29 @@
+package com.nguyenhung.ems.controller;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+
+import com.nguyenhung.ems.entity.Employee;
+import com.nguyenhung.ems.service.EmployeeService;
+import com.nguyenhung.sms.entity.Student;
+
+@Controller
+public class EmployeeController {
+	
+	@Autowired
+	private EmployeeService employeeService;
+	
+	@GetMapping("/")
+	public String viewHomePage(Model model) {
+		model.addAttribute("listEmployees", employeeService.getAllEmployees());
+		return "index";
+	}
+	@GetMapping("/students/add-student")
+	public String addEmployeeForm(Model model) {
+		Employee e = new Employee();
+		model.addAttribute("employee", e);
+		return "add-employee";
+	}
+}

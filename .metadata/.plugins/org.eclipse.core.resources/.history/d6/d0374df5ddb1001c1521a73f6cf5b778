@@ -1,0 +1,63 @@
+package com.nguyenhung.ems.controller;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+
+import com.nguyenhung.ems.entity.Employee;
+import com.nguyenhung.ems.service.EmployeeService;
+
+@Controller
+public class EmployeeController {
+	
+	@Autowired
+	private EmployeeService employeeService;
+	
+	@GetMapping("/")
+	public String viewHomePage(Model model) {
+		model.addAttribute("listEmployees", employeeService.getAllEmployees());
+		return "index";
+	}
+	@GetMapping("/index/add-employee")
+	public String addEmployeeForm(Model model) {
+		Employee e = new Employee();
+		model.addAttribute("employee", e);
+		return "add-employee";
+	}
+	@PostMapping("/index")
+	public String addStudent(@ModelAttribute("employee") Employee employee) {
+		employeeService.addEmployee(employee);
+		return "redirect:/index";
+	}
+	
+	@GetMapping("/index/edit/{id}")
+	public String editStudentForm(@PathVariable Long id, Model model) {
+		model.addAttribute("employee", this.employeeService.getEmployeeById(id));
+		return "edit-employee";
+	}
+	
+	@PostMapping("/index/{id}")
+	public String editStudent(
+			@PathVariable Long id, @ModelAttribute("student") Employee employee,
+			Model model) {
+		Employee selectedStudent = this.employeeService.getEmployeeById(id);
+		selectedStudent.setId(id);
+		selectedStudent.setFirstName(employee.getFirstName());
+		selectedStudent.setLastName(employee.getLastName());
+		selectedStudent.setEmail(employee.getEmail());
+		
+		this.employeeService.editEmployee(employee);
+		
+		return "redirect:/index";
+	}
+	
+	@GetMapping("/index/{id}")
+	public String removeStudent(@PathVariable Long id) {
+		this.employeeService.removeEmployeeById(id);
+		return "redirect:/index";
+	}
+}
