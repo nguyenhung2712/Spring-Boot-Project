@@ -1,5 +1,0 @@
-package com.nguyenhung.ems.repository;
-
-public interface EmployeeRepository {
-
-}
